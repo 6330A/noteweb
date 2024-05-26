@@ -5,7 +5,7 @@ export default defineConfig({
   base:"/noteweb/",
   title: "文档站点",
   //设置图标,public文件夹中
-  head: [["link", { rel: "icon", href: "/logo.svg" }]],
+  head: [["link", { rel: "icon", href: "/noteweb/logo.svg" }]],
   description: "A VitePress Site",
   themeConfig: {
     // https://vitepress.dev/reference/default-theme-config
