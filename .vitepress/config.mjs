@@ -2,6 +2,7 @@ import { defineConfig } from 'vitepress'
 
 // https://vitepress.dev/reference/site-config
 export default defineConfig({
+  base:"/noteweb/",
   title: "文档站点",
   //设置图标,public文件夹中
   head: [["link", { rel: "icon", href: "/logo.svg" }]],
