@@ -6,7 +6,7 @@ MySQL：关系型数据库管理系统
 
 Navicat
 
-~~~mysql
+~~~sql
 -- 查询数据库、创建数据库、切换数据库、删除数据库
 SHOW DATABASES;
 CREATE DATABASE student;
@@ -24,7 +24,7 @@ SQL语言分为五个部分
 
 #### DDL创建表，添加、修改表字段等
 
-```mysql
+```sql
 -- 创建student表
 CREATE TABLE student(
 	sno INT,
@@ -43,7 +43,7 @@ DESC student;
 SHOW CREATE TABLE student;
 ```
 
-```mysql
+```sql
 -- 最后添加一个字段
 ALTER TABLE student ADD score1 double(4,1);
 
@@ -73,7 +73,7 @@ DROP TABLE student;
 
 #### DML数据操作
 
-```mysql
+```sql
 -- 创建student表
 CREATE TABLE student(
 	sno INT,
@@ -114,7 +114,7 @@ TRUNCATE FROM student;
 
 #### 列级别约束
 
-```mysql
+```sql
 -- 创建表增加列级别约束
 CREATE TABLE student(
     -- 主键自增
@@ -131,7 +131,7 @@ CREATE TABLE student(
 
 #### 表级别约束
 
-```mysql
+```sql
 CREATE TABLE student(
 	sno INT AUTO_INCREMENT,
     name VARCHAR(55) NOT NULL,
@@ -155,7 +155,7 @@ ALTER TABLE student MODIFY sno INT AUTO_INCREMENT;
 
 #### 外键约束
 
-```mysql
+```sql
 CREATE TABLE class(
 	classno INT PRIMARY KEY AUTO_INCREMENT,
     classname VARCHAR(55)
@@ -181,7 +181,7 @@ ALTER TABLE student ADD CONSTRAINT fk_stu_classno FOREIGN KEY (classno) REFERENC
 
 #### 快速创建表 数据+结构，表中设置的主键并不会过来
 
-```mysql
+```sql
 CREATE TABLE student0
 AS
 SELECT * FROM student;
@@ -194,7 +194,7 @@ SELECT * FROM student WHERE 1 = 2;
 
 #### DQL
 
-```mysql
+```sql
 -- 查询指定列
 SELECT empno, ename FROM emp;
 
@@ -230,7 +230,7 @@ SELECT * FROM emp WHERE ename = 'SMITH' OR ename = 'ALLEN' AND sal > 7000;
 
 #### 模糊查询LIKE关键字
 
-```mysql
+```sql
 -- 名字含有王
 SELECT * FROM emp WHERE ename like '%s王%s';
 
@@ -240,7 +240,7 @@ SELECT * FROM emp WHERE ename like '_王%s';
 
 #### DQL函数使用，单行函数、多行函数
 
-```mysql
+```sql
 -- 单行函数很多；执行SQL语句时，分别产生一条记录
 SELECT ename, LOWER(ename), UPPER(name) FROM emp;
 
@@ -261,7 +261,7 @@ SELECT ename, sal,
 FROM emp;
 ```
 
-```mysql
+```sql
 -- 多行函数,就五个，MAX()、MIN()、SUM()、AVG()、COUNT()
 -- 多行函数在进行操作时，会自动忽视NULL字段
 SELECT MAX(sal), MIN(sal), SUM(sal), AVG(sal), COUNT(sal) FROM emp;
@@ -275,7 +275,7 @@ SELECT COUNT(DISTINCT job) FROM emp;
 
 #### DQL分组GROUP BY和HAVING，其中HAVING取代原来的WHERE
 
-```mysql
+```sql
 -- 统计各个部门的平均工资（只显示平均工资2000以上）
 SELECT deptno, COUNT(deptno) FROM emp GROUP BY deptno;
 
@@ -288,7 +288,7 @@ FROM        WHERE        GROUP  BY         SELECT        HAVING        ORDER  BY
 
 #### 多表查询：JOIN ON
 
-```mysql
+```sql
 -- 交叉连接CROSS JOIN 笛卡尔积
 SELECT * FROM emp CROSS JOIN dept;
 
@@ -310,7 +310,7 @@ SELECT * FROM emp e JOIN dept d ON e.deptno = d.deptno;
 
 #### 左外连接、右外连接、UNION进行全连接
 
-```mysql
+```sql
 -- LEFT JOIN 左外连接
 -- 左表内容全部显示，若匹配不到右表内容使用NULL代替
 SELECT * FROM emp e LEFT JOIN dept d ON e.deptno = d.deptno;
@@ -327,7 +327,7 @@ SELECT * FROM emp e RIGHT JOIN dept d ON e.deptno = d.deptno;
 -- 以上的UNION若替换为UNION ALL，则不会去除重复部分，仅仅在数据上累加
 ```
 
-```mysql
+```sql
 -- 三表联合查询emp,dept,salagrad，员工表，部门表，薪资等级表
 SELECT * FROM emp e JOIN dept d ON e.deptno = d.deptno
 					JOIN salagrad s ON e.sal BETWEEN s.lowsal AND s.highsal;
@@ -335,7 +335,7 @@ SELECT * FROM emp e JOIN dept d ON e.deptno = d.deptno
 
 #### 自连接查询
 
-```mysql
+```sql
 -- 自连接查询
 -- 自己表中字段关联自己表中字段，好处是可以减少表的建立
 -- 如员工表中，含上级领导一列，领导也是员工
@@ -345,7 +345,7 @@ SELECT * FROM emp e1
 
 #### 子查询（不相关子查询、相关子查询）
 
-```mysql
+```sql
 -- 常用不相关子查询，而相关子查询用的少
 -- 特点：一条SQL语句含有多个SELECT，先执行子查询，再执行外查询；子查询可以独立运行
 SELECT sal FROM emp WHERE ename = 'CLARK';
@@ -358,7 +358,7 @@ SELECT * FROM emp WHERE sal < ANY(SELECT sal FROM emp WHERE job = 'CLERK')
 
 > P37作业分析处理，三个题目，看视频，这里不写了
 
-```mysql
+```sql
 -- 相关子查询，查询速度慢，不常用，而且难以想到
 -- 查询部门最高工资员工信息
 SELECT * FROM emp e1 WHERE sal in(SELECT MAX(sal) FROM emp e2 WHERE e1.deptno = e2.deptno)
