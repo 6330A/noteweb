@@ -12,22 +12,23 @@ export default defineConfig({
     nav: [
       { text: 'Home', link: '/' },
       { text: "Java", link: '/Java/Java笔记' },
-      { text: "C++", link: '/C++/常用 C++ STL 用法' },
+      { text: "C++", link: '/C++/C++ STL' },
       { text: "Help", link: '/Help/网站部署' },
     ],
 
     sidebar: {
       '/Java': [
         { text: "Java笔记", link: '/Java/Java笔记' },
-        { text: "Java常用STL", link: '/Java/Java常用STL' },
+        { text: "Java STL", link: '/Java/Java STL' },
       ],
       '/C++': [
-        { text: "常用 C++ STL 用法", link: '/C++/常用 C++ STL 用法' },
+        { text: "C++ STL", link: '/C++/C++ STL' },
       ],
       '/Help': [
         { text: "网站部署", link: '/Help/网站部署' },
       ],
     },
+    
 
     // 隐藏目录结构，同理可以隐藏sidebar
     // sidebar: false,
@@ -59,5 +60,6 @@ export default defineConfig({
     footer: {
       copyright: "Powered by <strong>vitepress</strong> | Copyrigtht © 2024.5.21-2025 | <strong>NENU</strong> License"
     }
+    
   }
 })
