@@ -13,6 +13,7 @@ export default defineConfig({
       { text: 'Home', link: '/' },
       { text: "Java", link: '/Java/Java笔记' },
       { text: "C++", link: '/C++/C++ STL' },
+      { text: "MySQL", link: '/MySQL/MySQL基础' },
       { text: "Help", link: '/Help/网站部署' },
     ],
 
@@ -24,8 +25,12 @@ export default defineConfig({
       '/C++': [
         { text: "C++ STL", link: '/C++/C++ STL' },
       ],
+      '/MySQL': [
+        { text: "MySQL基础", link: '/MySQL/MySQL基础' },
+      ],
       '/Help': [
         { text: "网站部署", link: '/Help/网站部署' },
+        { text: "Git 介绍", link: '/Help/Git 介绍.md' },
       ],
     },
     
