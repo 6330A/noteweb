@@ -1,0 +1,549 @@
+# Java多线程(基础)
+
+**进程（process）**：程序的一次执行过程，或是正在内存中运行的应用程序。程序是静态的，进程是动态的。进程作为操作系统调度和分配资源的最小单位。
+
+**线程（thread）**：进程可进一步细化为线程，是程序内部的一条执行路径。线程作为CPU调度和执行的最小单位。
+
+#### 多线程程序的优点
+
+**背景**：以单核CPU为例，只使用单个线程先后完成多个任务（调用多个方法），肯定比用多个线程来完成用的时间更短，为何仍需多线程呢？
+
+**多线程程序的优点**
+
+1. 提高应用程序的响应。对图像化界面更有意义，可增强用户体验
+2. 提高计算机系统CPU的利用率
+3. 改善程序结构。将既长又复杂的进程分为多个线程，独立运行，利于理解和修改
+
+问题；多核的效率是单核的倍数吗？
+
+-  一个是多个核心的其他共用资源的限制
+- 另一个是多核CPU之间的协调管理损耗
+
+#### 并行与并并发
+
+- **并行（paraller）**：指两个或多个事件在同一时刻发生(同时发生)。指在同一时刻，有多条指令在多个CPU上同时执行。比如：多个人同时做不同的事。
+- **并发（concurrency）**：指两个或多个事件在同一个时间段内发生。即在一段时间内，有多条指令在单个CPU上快速轮换、交替执行，使得在宏观上具有多个进程同时执行的效果。
+
+#### 线程调度
+
+- 分时调度：有线程轮流使用CPU的使用权，并且平均分配每个线程占用CPU的时间。
+- **抢占式调度**：让优先级高的线程以较大的概率优先使用CPU。如果线程的优先级相同，那么会随机选择一个(线程随机性)，Java使用的为抢占式调度。
+
+> 优先级[1, 10]，默认主线程为5
+
+---
+
+#### Java.lang.Thread
+
+#### 线程创建方式（4种方式，一般使用线程池）
+
+::: info
+
+继承Thread，实现`run()`方法
+
+:::
+
+::: tip
+
+接口Runnable，实现`run()`方法
+
+:::
+
+::: warning
+
+接口Callable，实现`call()`方法 （jdk5.0新增）
+
+:::
+
+::: tip
+
+线程池 （jdk5.0新增）
+
+:::
+
+1. **线程的创建方式一：继承Thread类**
+
+```java
+public class OtherTest {
+    @Test
+    public void test1() {
+        // 创建对象，调用父类Thread的start()方法,也可以多态
+        Thread t1 = new NumEven();
+        t1.start();
+        Thread t2 = new NumEven();
+        t2.start();
+    }
+}
+// 类继承Thread,并重写run方法
+class NumEven extends Thread {
+    @Override
+    public void run() {
+        for (int i = 0; i < 100; i++) {
+            if (i % 2 == 0) {
+                System.out.println(Thread.currentThread().getName()+ " " + i);
+            }
+        }
+    }
+}
+```
+
+使用匿名方式，继承并实现Thread的run方法
+
+```java
+public class OtherTest {
+    @Test
+    public void test1() {
+        new Thread(){
+            public void run(){
+                for (int i = 0; i < 100; i++) {
+                    if (i % 2 == 0) {
+                        System.out.println(Thread.currentThread().getName()+ " " + i);
+                    }
+                }
+            }
+        }.start();
+    }
+}
+```
+
+2. **线程的创建方式二：实现Runnable接口**
+
+```java
+public class OtherTest {
+    @Test
+    public void test1() {
+        NumEven p = new NumEven();
+        // 将类的对象作为Thread的构造方法参数
+        Thread t1 = new Thread(p);
+        t1.start();
+        Thread t2 = new Thread(p);
+        t2.start();
+    }
+}
+// 实现接口Runnable的run方法
+class NumEven implements Runnable {
+    @Override
+    public void run() {
+        for (int i = 0; i < 100; i++) {
+            if (i % 2 == 0) {
+                System.out.println(Thread.currentThread().getName()+ " " + i);
+            }
+        }
+    }
+}
+```
+
+使用匿名方式，参数里面是匿名类的实例
+
+```java
+public class OtherTest {
+    @Test
+    public void test1() {
+        new Thread(new Runnable() {
+            public void run() {
+                for (int i = 0; i < 100; i++) {
+                    if (i % 2 == 0) {
+                        System.out.println(Thread.currentThread().getName()+ " " + i);
+                    }
+                }
+            }
+        }){}.start();
+        new Thread(new Runnable() {
+            public void run() {
+                for (int i = 0; i < 100; i++) {
+                    if (i % 2 != 0) {
+                        System.out.println(Thread.currentThread().getName()+ " " + i);
+                    }
+                }
+            }
+        }){}.start();
+    }
+}
+```
+
+- 对比两种方式
+
+  共同点：启动线程，使用的都是Thread类的start()，创建的线程对象，都是Thread类或其子类的实例
+
+  不同点：一个是类继承，一个是接口实现。
+
+  **建议使用Runnable；（好处是避免类的单继承局限性；更适合处理共享数据；实现代码数据分离）**
+
+#### 线程常用结构
+
+1. 线程中的构造器
+   - public Thread()
+   - public Thread(String name) ，继承的时候可以调用父类构造方法
+   - public Thread(Runnable target)，创建线程对象，见第二种创建线程的方法
+   - public Thread(Runnable target, String name) 同上， 设置了该线程的名字
+2. 线程中的常用方法（通过对象调用）
+   - start()：启动线程，调用线程run()方法
+   - run()： 将线程要执行的操作，声明在run()中
+   - currentThread() ：获取当前执行代码对应的线程
+   - getName()：获取线程名
+   - setName()：设置线程名
+   - sleep(long millis)：**静态方法**，Thread类名（子类也可以，实际还是Thread）调用，Thread.sleep(1000)
+   - yield()：**静态方法**，一旦执行此方法，就释放CPU执行权
+   - join()：在线程a中通过线程b调用join()，b.join()，意味着线程a进入阻塞状态，直到线程b执行结束，线程a才结束阻塞状态，继续执行
+   - isAlive()：判断当前线程是否存活
+
+3. 线程的状态
+   - Thread中的枚举类public enum State可以查看
+   - NEW **新建**
+   - RUNNABLE **就绪和运行**
+   - BLOCKED **锁阻塞**
+   -  WAITING **无限等待**
+   - TIMED_WAITING **计时等待**
+   - TERMINATED **死亡**
+
+---
+
+#### 线程安全问题与线程同步机制	P136-137
+
+当我们使用多个线程访问同一资源（可以是同一个变量、同一个文件、同一条记录等）的时候，若多个线程只有读操作，那么不会发生线程安全问题。但是如果多个线程中对资源有读和写的操作，就容易出现线程安全问题。
+
+Java是如何解决线程安全的问题的？使用线程的同步机制。
+
+- 方式1：同步代码块
+
+```java
+synchronized(/*同步监视器*/){
+    //需要被同步的代码
+}
+/*
+需要被同步的代码，即为操作共享数据的代码
+共享数据，即多个线程都需要操作的数据，比如ticket
+需要被同步的代码，在被synchronized包裹后，就使得一个线程在操作这些代码的过程中其他线程必须等待
+同步监视器，俗称锁，哪个线程获取了锁，哪个线程就能执行需要被同步的代码
+同步监视器，可以使用任何一个类的对象充当，但是多个线程必须共用同一个同步监视器
+接口方式一般使用：this
+继承方式一般使用：类.class  (反射)
+*/
+-----------------------------------------------------------
+//示例
+public class OtherTest {
+    @Test
+    public void test1() {
+        Tickets tickets = new Tickets();
+        Thread t1 = new Thread(tickets, "线程1");
+        Thread t2 = new Thread(tickets, "线程2");
+        Thread t3 = new Thread(tickets, "线程3");
+        t1.start();
+        t2.start();
+        t3.start();
+    }
+}
+
+class Tickets implements Runnable {
+    // 共享数据
+    private int ticket = 500;
+
+    @Override
+    public void run() {
+        while (true) {
+            synchronized (this/*唯一对象*/) {
+                if (ticket > 0) {
+                    System.out.println(Thread.currentThread().getName() + ": " + ticket);
+                    ticket--;
+                } else {
+                    break;
+                }
+            }
+        }
+    }
+}
+```
+
+- 方式2：同步方法
+
+```java
+class Tickets implements Runnable {
+    // 共享数据
+    private int ticket = 500;
+    private boolean flag = true;
+    @Override
+    public void run() {
+        while (flag) {
+            show();
+        }
+    }
+    private synchronized void show() {  //如果是非静态的，默认同步监视器：this
+        if (ticket > 0) {
+            System.out.println(Thread.currentThread().getName() + ": " + ticket);
+            ticket--;
+        } else {
+            flag = false;
+        }
+    }
+}
+
+//如果改为继承的方式，就不能直接在方法前面添加synchronized了，看情况是否使用static关键字改为类方法，这样this唯一
+//继承的方式如果方法不是static的，需要再show方法内再包裹一层synchronized，类.class作为唯一的同步监视器
+```
+
+**继承方式的例子，共享资源作为参数传递**
+
+```java
+public class OtherTest {
+    @Test
+    public void test1() {
+        // 共享资源，传递给继承方法实现的多线程类
+        Account account = new Account(0);
+        
+        Customer c1 = new Customer(account, "A");
+        Customer c2 = new Customer(account, "B");
+        Customer c3 = new Customer(account, "C");
+        c1.start();
+        c2.start();
+        c3.start();
+    }
+}
+
+//共享资源定义成一个类
+class Account{
+    private int balance;
+    public Account(int balance) {
+        this.balance = balance;
+    }
+    public synchronized void add(int x) {
+        balance += x;
+        System.out.println(Thread.currentThread().getName() + "存款1元，余额：" + balance);
+    }
+}
+
+class Customer extends Thread {
+    private Account account;
+
+    //线程只写了一个构造方法
+    public Customer(Account account, String name) {
+        super(name);
+        this.account = account;
+    }
+
+    @Override
+    public void run() {
+        for (int i = 0; i < 100; i++) {
+            account.add(1);
+        }
+    }
+}
+```
+
+#### 死锁P138 
+
+两个或多个进程在执行过程中，因争夺资源而造成的一种僵局状态，彼此都在等待对方释放资源，从而导致所有进程都无法继续执行的情况。这种情况通常发生在多线程编程中，特别是当线程之间互相等待对方持有的资源时。
+
+死锁通常发生在以下四个必要条件同时满足时：
+
+1. 互斥条件：资源只能被一个进程占用，不能同时被多个进程占用。
+2. 请求与保持条件：一个进程因请求资源而阻塞时，不释放已经持有的资源。
+3. 不剥夺条件：已经分配的资源不能被强制性地从进程中剥夺，只能由持有资源的进程自己释放。
+4. 循环等待条件：若干进程之间形成一种头尾相接的循环等待资源关系。
+
+> 一旦出现死锁，整个程序既不会发生异常，也不会给出任何提示，进入阻塞状态
+
+为了避免死锁的发生，需要采取一些预防措施，比如避免循环等待、按照特定的顺序请求资源、设置超时时间等。此外，在编写多线程程序时，还应该注意资源的合理分配和释放，以降低死锁的概率。
+
+`volatile` 是Java中的一个关键字，用于标记变量。当一个变量被声明为 `volatile` 时，表示它可能会被多个线程同时访问并修改。使用 `volatile` 关键字修饰的变量在每次被线程访问时，都会从主内存中重新加载其值，而不是使用线程私有的缓存。这样可以确保线程之间的可见性，即一个线程对变量的修改对其他线程是可见的。
+
+`volatile` 关键字保证了两点：
+
+1. 可见性：当一个线程修改了 `volatile` 变量的值，其他线程能够立即看到这个修改。
+2. 禁止指令重排序：`volatile` 变量的读写操作不能被重排序到其他指令之前或之后，从而确保了操作的有序性。
+
+虽然 `volatile` 可以确保可见性和有序性，但它并不能保证原子性。如果一个操作涉及到多个变量，并且这些变量之间的操作需要保持原子性，那么就需要使用其他手段，比如使用 `synchronized` 关键字或者 `java.util.concurrent` 包下的原子类。
+
+**接口**`Lock (java.util.convurrent.locks)`并发就是`JUC`的内容
+
+```java
+//三句话对需要执行的代码上锁
+//确保创建的Lock实例的唯一性，多个线程共用
+//private static final ReentrantLock lock = new ReentrantLock();
+//lock.lock();
+//lock.unlock();  一般放在try-catch-finally的finally中，确保释放资源
+```
+
+
+
+#### 线程的通信P139
+
+**等待唤醒机制**
+
+这是多个线程间的一种协作机制。谈到线程我们经常想到的是线程间的竞争（race)，比如去争夺锁，但这并不是故事的全部，线程间也会有协作机制。
+
+1. 线程间通信的理解
+   当我们需要多个线程来共同完成一件任务，并且我们希望他们有规律的执行，那么多线程之间需要一些通信机制，可以协调它们的工作，以此实现多线程共同操作一份数据。
+
+2. 三个方法的调用，仅限`synchronized`，（Lock需要配合Condition实现线程间的通信，且更灵活）
+
+   wait() 进入等待
+
+   notify() 唤醒一个被wait的中优先级最高的线程
+
+   notifyAll() 唤醒所有被wait的线程
+
+示例，`wait()`和`notify()`
+
+```java
+// 案例，线程交替执行，打印奇偶数
+class PrintNum implements Runnable {
+    private int num = 1;
+    @Override
+    public void run() {
+        while (true){
+            synchronized (this) {
+                //获取资源后唤醒被wait()的线程中优先级最高的那个
+                notify();   //同步监视器.notify();这里是this
+                if(num < 100){
+                    try {
+                        Thread.sleep(100);
+                    }catch (InterruptedException e){
+                        e.printStackTrace();
+                    }
+                    System.out.println(Thread.currentThread().getName() + ": " + num);
+                    num++;
+					
+                    //线程一旦执行该方法，就进入等待状态，同时释放对同步监视器的调用
+                    try {
+                        wait();    //同步监视器.wait();这里是this
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }else {
+                    break;
+                }
+            }
+        }
+    }
+}
+```
+
+**wait和sleep区别？**
+
+相同点：一旦执行，当前线程进入阻塞状态
+
+不同点：
+
+|                      | wait                                     | sleep                        |
+| -------------------- | ---------------------------------------- | ---------------------------- |
+| 声明位置             | 声明在Object类中                         | 声明在Thread类中，静态       |
+| 使用场景             | 只能在同步代码块或者同步方法中           | 任何需要使用的场景           |
+| 同步代码块或者方法中 | 一旦执行，释放同步监视器                 | 一旦执行，不会释放同步监视器 |
+| 结束阻塞方式         | 到达指定实际自动结束阻塞或者被notify唤醒 | 到达指定时间自动结束阻塞     |
+
+---
+
+**生产者消费者模式**
+
+```java
+public class OtherTest {
+    @Test
+    public void test1() {
+        Productor productor = new Productor();
+        Producer producer = new Producer(productor);
+        Consumer consumer = new Consumer(productor);
+
+        producer.start();
+        consumer.start();
+
+        try {
+            producer.join();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        try {
+            consumer.join();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
+}
+
+//线程处理写在了共享数据中
+class Productor{
+    private int count;
+
+    public synchronized void add(){
+        //产品达到一定数量，停止生成，等待消费者消费
+        if(count >= 10){
+            try {
+                wait();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+        count++;
+        System.out.println(Thread.currentThread().getName() + "生产了第" + count + "个产品");
+
+        notify();
+    }
+
+    public synchronized void remove(){
+        //产品不够了，等待生产者生成
+        if(count <= 0){
+            try {
+                wait();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+        System.out.println(Thread.currentThread().getName() + "消费了第" + count + "个产品");
+        count--;
+
+        notify();
+    }
+}
+
+class Producer extends Thread {
+    private Productor productor;
+
+    public Producer(Productor p) {
+        productor = p;
+    }
+    public void run() {
+        while(true){
+            System.out.println("生产者开始生成产品...");
+            try {
+                Thread.sleep(50);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            productor.add();
+        }
+    }
+}
+
+class Consumer extends Thread {
+    private Productor productor;
+
+    public Consumer(Productor p) {
+        productor = p;
+    }
+    public void run() {
+        while (true) {
+            System.out.println("消费者开始消费产品...");
+            try {
+                Thread.sleep(100);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            productor.remove();
+        }
+    }
+}
+```
+
+#### 线程创建方式
+
+3. 接口`Callable`，与`Runnable`类似，不过有返回值泛型，还能抛出异常`throws`
+
+   实现方法为`call()`，线程创建对象需要借助中间类`FutrueTask`
+
+   缺点：如果在主线程中需要获取分线程`call()`的返回值，则此时的主线程是阻塞状态的。
+
+4. **线程池**
+
+​		如果并发的线程数量很多，并且每个线程都是执行一个时间很短的任务就结束了，这样频繁创建线程就会大大降低系统的效率，因为频繁创建线程和销毁线程需要时间。
+​		**思路**：提前创建好多个线程，放入线程池中，使用时直接获取，使用完放回池中。可以**避免频繁创建销毁、实现重复利用**、**提高程序执行效率**。
+
+​		可以设置相关参数，对线程池中的线程使用进行管理。

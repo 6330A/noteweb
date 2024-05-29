@@ -21,6 +21,7 @@ export default defineConfig({
       '/Java': [
         { text: "Java笔记", link: '/Java/Java笔记' },
         { text: "Java STL", link: '/Java/Java STL' },
+        { text: "Java多线程(基础)", link: '/Java/Java多线程(基础)' },
       ],
       '/C++': [
         { text: "C++ STL", link: '/C++/C++ STL' },

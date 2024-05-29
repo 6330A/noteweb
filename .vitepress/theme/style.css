@@ -137,3 +137,7 @@
   --docsearch-primary-color: var(--vp-c-brand-1) !important;
 }
 
+/* var.css 隐藏链接下划线 */
+.vp-doc a {
+  text-decoration: none;
+}
