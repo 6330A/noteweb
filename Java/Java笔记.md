@@ -74,8 +74,6 @@ String name = "James";
 
 boolean result = name instanceof String;
 
-
-
 - 日期
 
 ```
@@ -83,43 +81,6 @@ import java.util.Date;
 Date date = new Date();
 System.out.println(date.toString());
 ```
-
-
-
-#### String
-
-```java
-//String 创建的字符串存储在公共池中，而 new 创建的字符串对象在堆上：
-//GPT：当你使用双引号创建一个字符串时，Java会首先检查字符串常量池中是否已经存在相同内容的字符串，如果存在则返回已存在的引用，如果不存在则创建一个新的字符串对象并放入字符串常量池中，然后返回该对象的引用。需要注意的是，通过new String("example")方式创建的字符串对象不会被放入字符串常量池中，而是在堆内存中创建一个新的字符串对象。
-
-String s1 = "Runoob";              // String 直接创建
-String s2 = "Runoob";              // String 直接创建
-String s3 = s1;                    // 相同引用
-String s4 = new String("Runoob");   // String 对象创建
-String s5 = new String("Runoob");   // String 对象创建
-
-boolean flag = s.isEmpty()   
-int len = site.length();
-
-char[] helloArray = { 'r', 'u', 'n', 'o', 'o', 'b'};
-String helloString = new String(helloArray);
-//应用：如果要对字符串str进行排序，是不能直接sort的，要转为字符串数组，对数组排序，再变为String
-//LeetCode 49.字母异位词分组
-String str = "hello";
-char[] arr = str.toCharArray();
-Arrays.sort(arr);
-String newstr = new String(arr);
-
-
-String toLowerCase()
-    
-//.charAt(i) 不能直接加减后赋值给char类型变量
-char ch = "abcdef".charAt(i) + 1;  //精度丢失，.charAt()返回int类型
-通常可以使用"abcdefg".charAt(i)获取对应字符
-    
-```
-
-
 
 #### 数组Arrays
 
@@ -278,8 +239,6 @@ Random random = new Random(seed);
 // 生成随机数示例
 int randomNumber = random.nextInt(100); // 生成0到99之间的随机整数
 ```
-
-
 
 ```java
 //获取当前时间System.currentTimeMillis()    //long类型

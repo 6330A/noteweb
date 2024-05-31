@@ -1,4 +1,4 @@
-# Java字符串String
+# Java字符串
 
 ```java
 // 后面两个等价，第一个是在字符串常量池中（堆内），后面是在堆中
@@ -41,6 +41,19 @@ String toLowerCase()
 String toUpperCase()
 String trim()                                                   //去掉字符串前后空格
 public String intern()                                          //在字符串常量池中共享
+    
+//.charAt(i) 不能直接加减后赋值给char类型变量
+char ch = "abcdef".charAt(i) + 1;  //精度丢失，.charAt()返回int类型
+// 通常可以使用"abcdefg".charAt(i)获取对应字符
+```
+
+#### 排序
+
+```java
+String str = "hello";
+char[] arr = str.toCharArray();
+Arrays.sort(arr);
+String newstr = new String(arr);
 ```
 
 #### 查找

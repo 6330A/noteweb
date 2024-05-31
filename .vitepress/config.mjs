@@ -20,8 +20,10 @@ export default defineConfig({
     sidebar: {
       '/Java': [
         { text: "Java笔记", link: '/Java/Java笔记' },
+        { text: "Java字符串", link: '/Java/Java字符串' },
         { text: "Java常用集合和数据结构", link: '/Java/Java常用集合和数据结构' },
         { text: "Java多线程(基础)", link: '/Java/Java多线程(基础)' },
+        { text: "Java比较器", link: '/Java/Java比较器' },
       ],
       '/C++': [
         { text: "C++ STL", link: '/C++/C++ STL' },
