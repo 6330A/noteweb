@@ -1,5 +1,7 @@
 # MySQL基础
 
+---
+
 [视频地址](https://www.bilibili.com/video/BV17G41177d1?p=13&spm_id_from=pageDriver&vd_source=b9f16feb6ff7836e90c4ba95657422ea)
 
 MySQL：关系型数据库管理系统
