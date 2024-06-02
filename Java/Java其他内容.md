@@ -135,9 +135,38 @@ class Product {
 
 #### Lambda表达式
 
-`Lambda`表达式通常与函数式接口一起使用。函数式接口是仅包含一个抽象方法的接口，可以使用
+`Lambda`表达式通常与函数式接口一起使用。函数式接口是仅包含一个抽象方法的接口，可以使用`@FunctionalInterface`注解标注。
 
-比较器中实现一个对象，可以使用Lambda表达式，然后将对象作为参数放入集合的构造方法
+```java
+@FunctionalInterface
+public interface MathOperation {
+    int operation(int a, int b);
+}
+```
+
+```java
+public class LambdaExample {
+    public static void main(String[] args) {
+        // 使用 Lambda 表达式实现 MathOperation 接口
+        MathOperation addition = (a, b) -> a + b;
+        MathOperation subtraction = (a, b) -> a - b;
+        MathOperation multiplication = (a, b) -> a * b;
+        MathOperation division = (a, b) -> a / b;
+
+        // 调用方法
+        System.out.println("10 + 5 = " + operate(10, 5, addition));
+        System.out.println("10 - 5 = " + operate(10, 5, subtraction));
+        System.out.println("10 * 5 = " + operate(10, 5, multiplication));
+        System.out.println("10 / 5 = " + operate(10, 5, division));
+    }
+
+    private static int operate(int a, int b, MathOperation mathOperation) {
+        return mathOperation.operation(a, b);
+    }
+}
+```
+
+**比较器**中实现一个对象，可以使用`Lambda`表达式，然后将对象作为参数放入集合的构造方法
 
 [力扣347前K个高频元素](https://leetcode.cn/problems/top-k-frequent-elements/?envType=study-plan-v2&envId=top-100-liked) 
 
