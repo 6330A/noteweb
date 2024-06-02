@@ -1,4 +1,6 @@
-# Java比较器
+# Java其他内容
+
+---
 
 #### 实现对象的排序，可以考虑两种方法，自然排序和定制排序
 
@@ -72,7 +74,7 @@ public class OtherTest {
         arr[2] = new Product("meizu", 2999);
         arr[3] = new Product("xiaomi", 3999);
         // 定义一个比较器，实现
-        Comparator comparator = new Comparator<Product>() {
+        Comparator<Product> comparator = new Comparator<Product>() {
             @Override
             public int compare(Product o1, Product o2) {
                 if (o1 == o2) {
@@ -128,3 +130,35 @@ class Product {
 ​	临时的
 
 ​	需要一个实例，实现Comparator的抽象方法compare(Object o1, Object O2)
+
+
+
+#### Lambda表达式
+
+`Lambda`表达式通常与函数式接口一起使用。函数式接口是仅包含一个抽象方法的接口，可以使用
+
+比较器中实现一个对象，可以使用Lambda表达式，然后将对象作为参数放入集合的构造方法
+
+[力扣347前K个高频元素](https://leetcode.cn/problems/top-k-frequent-elements/?envType=study-plan-v2&envId=top-100-liked) 
+
+```java
+Comparator<Product> comparator = (o1, o2) -> o1.price - o2.price);
+```
+
+#### switch新特性
+
+JDK12引入增强的`switch`表达式，可以有返回值，使用箭头`->`替换繁琐的`break`语句避免贯穿，仍然可以使用冒号`:`和花括号`{}`，在JDK13中引入`yield`关键字从一个分支中返回值，专门用于`switch`表达式。
+
+```java
+int score[] = {44, 61, 89, 90, 100};
+String grade[] = new String[score.length];  // 不及格 及格 良好 优秀 优秀
+
+for (int i = 0; i < score.length; i++) {
+    grade[i] = switch (score[i] / 10) {
+        case 10, 9 -> "优秀";
+        case 8 -> "良好";
+        case 7, 6 -> "及格";
+        default -> "不及格";
+    };
+}
+```
