@@ -138,5 +138,6 @@ int length()                                            //在接口CharSequence�
 StringBuffer reverse() 
 boolean isEmpty()                                       //在接口CharSequence中
 void SetLength(int newLength)                           //父类AbstractStringBuilder中
+String toString()
 ```
 

@@ -22,8 +22,10 @@ export default defineConfig({
         { text: "Java笔记", link: '/Java/Java笔记' },
         { text: "Java字符串", link: '/Java/Java字符串' },
         { text: "Java常用集合和数据结构", link: '/Java/Java常用集合和数据结构' },
-        { text: "Java多线程(基础)", link: '/Java/Java多线程(基础)' },
         { text: "Java其他内容", link: '/Java/Java其他内容' },
+        { text: "多线程基础1", link: '/Java/多线程基础1' },
+        { text: "多线程基础2", link: '/Java/多线程基础2' },
+        { text: "JUC", link: '/Java/JUC' }
       ],
       '/C++': [
         { text: "C++ STL", link: '/C++/C++ STL' },
