@@ -15,7 +15,7 @@ export default defineConfig({
       { text: "C++", link: '/C++/C++ STL' },
       { text: "MySQL", link: '/MySQL/MySQL基础' },
       { text: "Help", link: '/Help/网站部署' },
-      { text: "LeetCode", link: '/LeetCode/LeetCode Hot 100汇总乱序' },
+      { text: "LeetCode", link: '/LeetCode/哈希' },
     ],
 
     sidebar: {
@@ -56,8 +56,6 @@ export default defineConfig({
         { text: "动态规划", link: '/LeetCode/动态规划' },
         { text: "多维动态规划", link: '/LeetCode/多维动态规划' },
         { text: "技巧", link: '/LeetCode/技巧' },
-        { text: "Hot 100汇总乱序", link: '/LeetCode/LeetCode Hot 100汇总乱序' },
-
       ],
     },
     
