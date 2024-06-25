@@ -1,0 +1,1 @@
+import{_ as s,c as i,o as a,a4 as n}from"./chunks/framework.Dp2ecPID.js";const c=JSON.parse('{"title":"技巧","description":"","frontmatter":{},"headers":[],"relativePath":"LeetCode/技巧.md","filePath":"LeetCode/技巧.md"}'),h={name:"LeetCode/技巧.md"},l=n("",11),k=[l];function p(t,e,E,r,d,g){return a(),i("div",null,k)}const F=s(h,[["render",p]]);export{c as __pageData,F as default};

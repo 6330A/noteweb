@@ -1,0 +1,1 @@
+import{_ as s,c as i,o as a,a4 as n}from"./chunks/framework.Dp2ecPID.js";const o=JSON.parse('{"title":"贪心","description":"","frontmatter":{},"headers":[],"relativePath":"LeetCode/贪心.md","filePath":"LeetCode/贪心.md"}'),t={name:"LeetCode/贪心.md"},h=n("",4),l=[h];function e(k,p,r,E,d,c){return a(),i("div",null,l)}const y=s(t,[["render",e]]);export{o as __pageData,y as default};

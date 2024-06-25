@@ -1,0 +1,1 @@
+import{_ as s,c as i,o as a,a4 as n}from"./chunks/framework.Dp2ecPID.js";const F=JSON.parse('{"title":"链表","description":"","frontmatter":{},"headers":[],"relativePath":"LeetCode/链表.md","filePath":"LeetCode/链表.md"}'),h={name:"LeetCode/链表.md"},l=n("",22),k=[l];function p(t,e,E,r,d,g){return a(),i("div",null,k)}const c=s(h,[["render",p]]);export{F as __pageData,c as default};
