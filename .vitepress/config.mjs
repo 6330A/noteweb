@@ -24,6 +24,7 @@ export default defineConfig({
         { text: "Java字符串", link: '/Java/Java字符串' },
         { text: "Java常用集合和数据结构", link: '/Java/Java常用集合和数据结构' },
         { text: "Java其他内容", link: '/Java/Java其他内容' },
+        { text: "Java-Stream", link: '/Java/Java-Stream' },
         { text: "多线程基础1", link: '/Java/多线程基础1' },
         { text: "多线程基础2", link: '/Java/多线程基础2' },
         { text: "JUC", link: '/Java/JUC' }
