@@ -14,8 +14,8 @@ export default defineConfig({
       { text: "Java", link: '/Java/Java笔记' },
       { text: "C++", link: '/C++/C++ STL' },
       { text: "MySQL", link: '/MySQL/MySQL基础' },
-      { text: "Help", link: '/Help/网站部署' },
       { text: "LeetCode", link: '/LeetCode/哈希' },
+      { text: "Help", link: '/Help/网站部署' },
     ],
 
     sidebar: {
@@ -38,6 +38,8 @@ export default defineConfig({
       '/Help': [
         { text: "网站部署", link: '/Help/网站部署' },
         { text: "Git 介绍", link: '/Help/Git 介绍.md' },
+        { text: "Linux 命令", link: '/Help/Linux 命令.md' },
+        { text: "Typora基础教程", link: '/Help/Typora基础教程.md' },
       ],
       '/LeetCode': [
         { text: "哈希", link: '/LeetCode/哈希' },
