@@ -87,7 +87,7 @@ export default defineConfig({
     },
 
     socialLinks: [
-      { icon: 'github', link: 'https://github.com/6330A?tab=repositories' }
+      { icon: 'github', link: 'https://github.com/6330A' }
     ],
 
     footer: {

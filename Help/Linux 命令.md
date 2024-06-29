@@ -18,6 +18,8 @@
 | [cp](https://www.runoob.com/linux/linux-comm-cp.html)       | copy file               | 复制文件或目录                                     |
 | [zip](https://www.runoob.com/linux/linux-comm-zip.html)     |                         | 压缩文件                                           |
 | [unzip](https://www.runoob.com/linux/linux-comm-unzip.html) |                         | 解压缩zip文件                                      |
+| [sudo](https://www.runoob.com/linux/linux-comm-sudo.html)   | superuser do            | 使用root权限                                       |
+| [find](https://www.runoob.com/linux/linux-comm-find.html)   |                         | 在指定目录下查找文件和目录                         |
 | clear                                                       |                         | 清除屏幕                                           |
 
 [vi/vim](https://www.runoob.com/linux/linux-vim.html)的使用
@@ -33,6 +35,12 @@
 | esc          | 一般模式                                 |
 | :            | 切换到底线命令模式，以在最底一行输入命令 |
 | :wq          | 保存文件并退出                           |
+
+#### 提升权限
+
+```sh
+sudo su
+```
 
 #### 切换目录
 
@@ -92,3 +100,4 @@ unzip dataset.zip                # 解压文件到当前目录
 unzip dataset.zip -d folder      # 解压文件到指定目录
 ```
 
+#### 查找文件和目录
