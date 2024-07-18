@@ -51,7 +51,7 @@ public class DaemonDemo {
 // P10 CompletableFutureDemo.java
 public class CompletableFutureDemo {
     public static void main(String[] args) throws ExecutionException, InterruptedException {
-        // FutureTask 实现了RunnableFuture接口，实现了RunnableFuture接口实现了Runnable, Future接口
+        // FutureTask 实现了RunnableFuture接口，RunnableFuture接口实现了Runnable, Future接口
         // 创建实例作为FutureTask的构造参数，这里lambda实现了Callable接口的匿名实例
         FutureTask<String> futureTask = new FutureTask<>(() -> {
             System.out.println("------come in call()");
@@ -1119,7 +1119,7 @@ Java中`synchronized`的重量级锁，是基于进入和退出`Monitor`对象�
 | 轻量级锁 |           竞争的线程不会阻塞，提高了程序的响应速度           |   始终得不到锁竞争的线程，会使用自旋消耗CPU    | 适用于竞争不激烈的情况，追求响应时间，同步块执行速度非常快 |
 | 重量级锁 |                线程竞争不适用自旋，不消耗CPU                 |             线程阻塞，响应时间缓慢             |               追求吞吐量，同步块执行速度较长               |
 
-**JIT （Just in Time Compile）**即时编译器，两个比较easy的问题。
+**JIT（Just in Time Compile）即时编译器，两个比较easy的问题**
 
 锁消除：JVM 通过逃逸分析进行优化的一种技术，旨在去掉不必要的同步锁操作，从而提升程序的性能。举个例子：试图锁同一个对象但是传递的同步监视器每次都是新new出来的一个对象，那么锁都是不同的，因此会发生锁消除。
 
