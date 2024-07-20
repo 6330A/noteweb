@@ -95,5 +95,8 @@ export default defineConfig({
       copyright: "Powered by <strong>vitepress</strong> | Copyrigtht © 2024.5.21-2025 | <strong>NENU</strong> License"
     }
     
+  },
+  markdown: {
+    math: true
   }
 })
