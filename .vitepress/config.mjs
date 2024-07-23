@@ -59,7 +59,8 @@ export default defineConfig({
         { text: "贪心", link: '/LeetCode/贪心' },
         { text: "动态规划", link: '/LeetCode/动态规划' },
         { text: "多维动态规划", link: '/LeetCode/多维动态规划' },
-        { text: "技巧", link: '/LeetCode/技巧' }
+        { text: "技巧", link: '/LeetCode/技巧' },
+        { text: "剑指Offer", link: '/LeetCode/剑指Offer' },
       ],
     },
     
