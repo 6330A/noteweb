@@ -1,1 +1,0 @@
-import{_ as s,c as i,o as a,a4 as n}from"./chunks/framework.Dp2ecPID.js";const c=JSON.parse('{"title":"多线程基础1","description":"","frontmatter":{},"headers":[],"relativePath":"Java/多线程基础1.md","filePath":"Java/多线程基础1.md"}'),h={name:"Java/多线程基础1.md"},l=n("",72),k=[l];function p(t,e,E,r,d,g){return a(),i("div",null,k)}const F=s(h,[["render",p]]);export{c as __pageData,F as default};
