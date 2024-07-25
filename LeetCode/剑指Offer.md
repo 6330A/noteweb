@@ -159,6 +159,37 @@ public class Solution {
 }
  ```
 
+#### [JZ26 树的子结构](https://www.nowcoder.com/practice/6e196c44c7004d15b1610b9afca8bd88?tpId=13&tqId=23293&ru=/exam/oj/ta&qru=/ta/coding-interviews/question-ranking&sourceUrl=%2Fexam%2Foj%2Fta%3Fpage%3D1%26tpId%3D13%26type%3D13)
+
+```java
+public class Solution {
+    // 解法一：递归，（当前根节点开始比较 || 左节点开始比较 || 右节点开始比较）
+    // 看题目条件空树不是任意树的子结构
+    public boolean HasSubtree(TreeNode root1, TreeNode root2) {
+        if (root1 == null || root2 == null) {
+            return false;
+        }
+
+        return verifyRoot(root1, root2) || HasSubtree(root1.left, root2) || HasSubtree(root1.right, root2);
+    }
+
+    public boolean verifyRoot(TreeNode root1, TreeNode root2) {
+        // root2为空直接true
+        // root1空，root2不空false
+        // 都不空，比较val
+        if (root2 == null) {
+            return true;
+        } else if (root1 == null) {
+            return false;
+        } else if (root1.val != root2.val) {
+            return false;
+        }
+
+        return verifyRoot(root1.left, root2.left) && verifyRoot(root1.right, root2.right);
+    }
+}
+```
+
 #### [JZ31 栈的压入、弹出序列](https://www.nowcoder.com/practice/d77d11405cc7470d82554cb392585106?tpId=13&tqId=23290&ru=/exam/oj/ta&qru=/ta/coding-interviews/question-ranking&sourceUrl=%2Fexam%2Foj%2Fta%3Fpage%3D1%26tpId%3D13%26type%3D13)
 
 ```java
@@ -443,6 +474,40 @@ public class Solution {
 
         // 如果所有元素出队，证明没有满足条件的字符 -1
         return ans == str.length() ? -1 : ans;
+    }
+}
+```
+
+#### [JZ56 数组中只出现一次的两个数字](https://www.nowcoder.com/practice/389fc1c3d3be4479a154f63f495abff8?tpId=13&tqId=1375231&ru=/exam/oj/ta&qru=/ta/coding-interviews/question-ranking&sourceUrl=%2Fexam%2Foj%2Fta%3Fpage%3D1%26tpId%3D13%26type%3D13)
+
+```java
+public class Solution {
+    public int[] FindNumsAppearOnce (int[] nums) {
+        // 关键是将nums划分为两组，每组只包含一个结果
+        // 找到x, y任意一个不同的二进制位即可
+        // 第一遍求 x^y, 找到最低位为1的mask
+        // 用mask划分nums
+
+        int x = 0, y = 0;
+        int mask = 1, temp = 0;
+        for (int num : nums) {
+            temp ^= num;
+        }
+        while ((temp & mask) == 0) {
+            mask <<= 1;
+        }
+        for (int num : nums) {
+            if ((num & mask) == 0) {
+                x ^= num;
+            } else {
+                y ^= num;
+            }
+        }
+        if (x < y) {
+            return new int[] {x, y};
+        } else {
+            return new int[] {y, x};
+        }
     }
 }
 ```
