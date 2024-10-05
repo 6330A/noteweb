@@ -512,3 +512,48 @@ public class Solution {
 }
 ```
 
+#### [JZ14 剪绳子](https://www.nowcoder.com/practice/57d85990ba5b440ab888fc72b0751bf8?tpId=13&tqId=587690&ru=/exam/oj/ta&qru=/ta/coding-interviews/question-ranking&sourceUrl=%2Fexam%2Foj%2Fta%3Fpage%3D1%26tpId%3D13%26type%3D13)
+
+```java
+// 解法一：动态规划
+public class Solution {
+    public int cutRope (int n) {
+        int ans, res1, res2;
+        int[] dp = new int[n + 1];
+        dp[2] = 1;
+        // 考虑 n -> [2, 60],只需要下标2赋值即可，下面循环从3开始，因此赋值和循环都不会越界
+        // 内层不优化是一个for循环，遍历前面所有结果dp[i] = Math.max(dp[i], j * Math.max(dp[i - j], i - j))
+        // 优化后，只剪2或者3，每种情况又分两种情况，max(只剪2段，乘上已知最大)
+        for (int i = 3; i <= n; i++) {
+            res1 = 2 * Math.max(dp[i - 2], i - 2);
+            res2 = 3 * Math.max(dp[i - 3], i - 3);
+            dp[i] = Math.max(res1, res2);
+        }
+        return dp[n];
+    }
+}
+
+
+// 解法二：数学公式，n为2，3对应1，2；其他情况尽可能划分出3，余数为1的话拿出一个3凑成4
+public class Solution {
+    public int cutRope (int n) {
+        // 条件2 <= n <= 60;
+        if (n < 4) {
+            return n - 1;
+        }
+        int ans;
+        int exponent = n / 3;
+        int remainder = n % 3;
+        if (remainder == 0) {
+            ans = (int) Math.pow(3, exponent);             // 注意公式返回double需要类型转换
+        } else if (remainder == 1) {
+            ans = (int) Math.pow(3, exponent - 1) * 4;
+        } else {
+            ans = (int) Math.pow(3, exponent) * 2;
+        }
+
+        return ans;
+    }
+}
+```
+
