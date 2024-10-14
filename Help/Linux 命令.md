@@ -58,10 +58,10 @@ mkdir folder                         # 创建目录
 mkdir -p folder1/folder2/folder3     # 创建多级目录
 ```
 
-#### 打印文件
+#### 查看、连接、创建文件
 
 ```sh
-cat > file.txt    # 创建a.txt文件，之后可以写入，ctrl + d进行保存
+cat > file.txt    # 创建a.txt文件，之后可以写入，Enter换行，ctrl + d进行保存
 cat file.txt      # 将指定文件的内容输出到终端
 ```
 
