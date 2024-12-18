@@ -3,7 +3,7 @@
 layout: home
 
 hero:
-  name: "MILILI的文档知识库"
+  name: "MILILI的文档知识库"(/documents/东北师范大学-刘章阳.pdf){target="download" download}
   text: ""
   tagline: 每天记录一点点
   # actions:
@@ -13,6 +13,7 @@ hero:
   #   - theme: alt
   #     text: API Examples
   #     link: /api-examples
+
 
 features:
   - title: Git commond
@@ -31,3 +32,5 @@ features:
     details: 
      git pull
 ---
+
+[hello]
