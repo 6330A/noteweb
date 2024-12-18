@@ -31,4 +31,3 @@ features:
     details: 
      git pull
 ---
-
