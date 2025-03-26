@@ -45,6 +45,21 @@ nothing to commit (create/copy files and use "git add" to track)
 
 默认情况下，磁盘中的文件并不由git管理，我们必须要对代码目录进行初始化，初始化后git才能正常管理文件。进入目录后，直接在目录中执行`git init`即可完成项目的初始化，初始化后目录中多出一个.git目录，这个目录用于存储代码的版本信息，有了.git就意味着项目开始被git管理了，如果不希望项目被git管理，可以直接删除项目中的.git。
 
+#### 忽略文件
+
+一般有些文件无需纳入Git的管理，也不希望它们总出现在未跟踪文件列表。通常都是些自动生成的文件，比如日志文件，或者编译过程中创建的临时文件等。在这种情况下，可以在工作目录中创建一个名为`.gitignore`的文件（文件名称固定），列出要忽略的文件模式。
+
+```tex
+node_modules
+DS_Store
+dist
+dist-ssr
+cache
+.cache
+.temp
+*.local
+```
+
 #### 文件状态
 
 git中的文件有两种状态：未跟踪（比如新建了一个文件）和已跟踪（tracked untracked）。未跟踪指文件没有被git所管理，已跟踪指文件已被git管理。已跟踪的文件又有三种状态：已修改、暂存和未修改。
@@ -72,10 +87,10 @@ git在存储文件时，每一次代码的提交都会创建一个与之对应�
 ```shell
 git branch          # 查看本地分支，以及当前所在分支
 git branch xxx      # 创建名为xxx的分支
-git branch -d xxx   #删除名为xxx的分支
+git branch -d xxx   # 删除名为xxx的分支
 
-git switch xxx      #切换到xxx分支
-git switch -c xxx   #创建名为xxx的分支并且直接切换到这个分支中，常用
+git switch xxx      # 切换到xxx分支
+git switch -c xxx   # 创建名为xxx的分支并且直接切换到这个分支中，常用
 ```
 
 - 合并分支
@@ -86,4 +101,36 @@ git merge xxx       # 合并分支，如果xxx是直接在master之后的，可�
 ```
 
 > 在实际工作中，通常先要创建分支，然后在自己的分支上进行修改，不要一上来就改
+
+- 解决冲突
+
+​	当两个分支上对文件的修改可能会存在冲突，例如同时修改了同一个文件的同一行，这时就需要手动解决冲突，解决冲突步骤如下
+
+1. 处理文件中冲突的地方
+2. 将解决完冲突的文件加入暂存区(add)
+3. 提交到仓库(commit)
+
+#### 注意事项
+
+- 切换分支前先提交本地的修改
+- 代码及时提交，提交过了就不会丢
+
+```bash
+git clone sshpath		# 克隆远程仓库到本地
+git checkout xxxx		# 切换到开发分支
+git switch -c develop	# 创建自己的分支
+git pull 				# 在提交前先拉取代码,可能其他人已经更新过了
+# 解决冲突再add commit push
+```
+
+#### 其他
+
+```bash
+ls						# 以简洁的方式列出文件和目录
+ll						# 等同于 ls-l , 以长格式显示文件和目录详细信息
+
+touch abc.txt			# 创建 abc.txt
+vi abc.txt				# 编辑 abc.txt ,使用 i 进入编辑, :wq退出编辑
+cat abc.txt				# 显示文件内容
+```
 
