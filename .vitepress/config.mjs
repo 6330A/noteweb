@@ -44,6 +44,7 @@ export default defineConfig({
         { text: "网站部署", link: '/Help/网站部署' },
         { text: "Git 介绍", link: '/Help/Git 介绍.md' },
         { text: "Linux 命令", link: '/Help/Linux 命令.md' },
+        { text: "Docker", link: '/Help/Docker.md' },
         { text: "Typora基础教程", link: '/Help/Typora基础教程.md' },
       ],
       '/LeetCode': [
