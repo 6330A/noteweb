@@ -13,6 +13,7 @@ export default defineConfig({
       { text: "Java", link: '/Java/Java笔记' },
       { text: "C++", link: '/C++/C++ STL' },
       { text: "Python", link: '/Python/Python容器' },
+      { text: "React", link: '/React/基础学习' },
       { text: "MySQL", link: '/MySQL/MySQL基础' },
       { text: "LeetCode", link: '/LeetCode/哈希' },
       { text: "Help", link: '/Help/网站部署' },
@@ -36,6 +37,9 @@ export default defineConfig({
       '/Python': [
         { text: "Python容器", link: '/Python/Python容器' },
         { text: "Python常用及语法糖", link: '/Python/Python常用及语法糖' },
+      ],
+      '/React': [
+        { text: "基础学习", link: '/React/基础学习' },
       ],
       '/MySQL': [
         { text: "MySQL基础", link: '/MySQL/MySQL基础' },
